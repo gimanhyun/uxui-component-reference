@@ -2,6 +2,7 @@
 
 import { DesignTone } from '@/types/component';
 import { SlidersHorizontal, Check } from 'lucide-react';
+import { trackEvent } from '@/lib/mixpanel';
 
 interface ToneFilterBarProps {
   selectedTone: DesignTone | 'all';
@@ -42,7 +43,10 @@ export function ToneFilterBar({
             return (
               <button
                 key={tone.id}
-                onClick={() => onSelectTone(tone.id)}
+                onClick={() => {
+                  trackEvent('Tone Filter Selected', { tone: tone.id, label: tone.label });
+                  onSelectTone(tone.id);
+                }}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 border ${
                   isSelected
                     ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 border-zinc-900 dark:border-zinc-100 shadow-sm'

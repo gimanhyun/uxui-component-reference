@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { COMPONENTS_DATA } from '@/data/components-data';
 import { UIComponentData, DesignTone } from '@/types/component';
 import { Header } from '@/components/header';
@@ -13,6 +13,7 @@ import { ComponentDetailModal } from '@/components/component-detail-modal';
 import { Footer } from '@/components/footer';
 import { CommandPaletteInteractiveDemo } from '@/components/ui-interactive/command-palette-demo';
 import { Search, Sparkles, Filter, RefreshCw } from 'lucide-react';
+import { trackPageView, trackEvent } from '@/lib/mixpanel';
 
 export default function Home() {
   const [selectedTone, setSelectedTone] = useState<DesignTone | 'all'>('all');
@@ -21,6 +22,11 @@ export default function Home() {
   const [aiInitialText, setAiInitialText] = useState('');
   const [selectedComponentForDetail, setSelectedComponentForDetail] = useState<UIComponentData | null>(null);
   const [highlightedCompId, setHighlightedCompId] = useState<string | null>(null);
+
+  // Mixpanel 페이지 뷰 트래킹
+  useEffect(() => {
+    trackPageView('Home Landing Page');
+  }, []);
 
   // 1. 톤 & 검색어 필터링 알고리즘
   const filteredComponents = useMemo(() => {

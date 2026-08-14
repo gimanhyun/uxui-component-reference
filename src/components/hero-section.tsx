@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Sparkles, Search, Upload, ArrowRight, Layers, HelpCircle } from 'lucide-react';
+import { trackEvent } from '@/lib/mixpanel';
 
 interface HeroSectionProps {
   onOpenAIModalWithText: (initialText?: string) => void;
@@ -25,6 +26,7 @@ export function HeroSection({
   const handleAISubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (quickInput.trim()) {
+      trackEvent('Hero AI Input Submitted', { inputQuery: quickInput });
       onOpenAIModalWithText(quickInput);
     }
   };
@@ -80,7 +82,10 @@ export function HeroSection({
             <span className="text-[11px]">이미지로 찾고 싶으신가요?</span>
             <button
               type="button"
-              onClick={() => onOpenAIModalWithText()}
+              onClick={() => {
+                trackEvent('Hero Image Dropzone Clicked');
+                onOpenAIModalWithText();
+              }}
               className="flex items-center gap-1.5 text-xs font-semibold text-zinc-900 dark:text-zinc-100 hover:underline"
             >
               <Upload className="w-3.5 h-3.5" />
@@ -95,7 +100,10 @@ export function HeroSection({
           {quickTags.map((tag) => (
             <button
               key={tag}
-              onClick={() => onSelectTag(tag)}
+              onClick={() => {
+                trackEvent('Hero Tag Clicked', { tag });
+                onSelectTag(tag);
+              }}
               className="px-2.5 py-1 text-[11px] font-medium bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-lg border border-zinc-200 dark:border-zinc-800 transition"
             >
               #{tag}

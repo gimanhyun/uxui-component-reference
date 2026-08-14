@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Sparkles, Command, Sun, Moon, Layers } from 'lucide-react';
+import { trackEvent } from '@/lib/mixpanel';
 
 interface HeaderProps {
   onOpenAIModal: () => void;
@@ -17,16 +18,6 @@ export function Header({ onOpenAIModal, onOpenCommandPalette }: HeaderProps) {
       setIsDark(true);
     }
   }, []);
-
-  const toggleTheme = () => {
-    if (isDark) {
-      document.documentElement.classList.remove('dark');
-      setIsDark(false);
-    } else {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    }
-  };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md transition-colors">
@@ -55,7 +46,10 @@ export function Header({ onOpenAIModal, onOpenCommandPalette }: HeaderProps) {
         <div className="flex items-center gap-2.5">
           {/* AI 컴포넌트 식별기 버튼 */}
           <button
-            onClick={onOpenAIModal}
+            onClick={() => {
+              trackEvent('Click Header AI Identifier');
+              onOpenAIModal();
+            }}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 rounded-xl text-xs font-semibold hover:opacity-90 transition shadow-sm"
           >
             <Sparkles className="w-3.5 h-3.5 text-yellow-300 dark:text-amber-600" />
@@ -65,7 +59,10 @@ export function Header({ onOpenAIModal, onOpenCommandPalette }: HeaderProps) {
 
           {/* 단축키 검색 버튼 */}
           <button
-            onClick={onOpenCommandPalette}
+            onClick={() => {
+              trackEvent('Click Header Quick Search');
+              onOpenCommandPalette();
+            }}
             className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-xs text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition"
           >
             <Command className="w-3.5 h-3.5" />
@@ -81,6 +78,7 @@ export function Header({ onOpenAIModal, onOpenCommandPalette }: HeaderProps) {
               onClick={() => {
                 document.documentElement.classList.remove('dark');
                 setIsDark(false);
+                trackEvent('Theme Mode Switched', { targetTheme: 'white' });
               }}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-xl transition-all ${
                 !isDark
@@ -95,6 +93,7 @@ export function Header({ onOpenAIModal, onOpenCommandPalette }: HeaderProps) {
               onClick={() => {
                 document.documentElement.classList.add('dark');
                 setIsDark(true);
+                trackEvent('Theme Mode Switched', { targetTheme: 'dark' });
               }}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-xl transition-all ${
                 isDark

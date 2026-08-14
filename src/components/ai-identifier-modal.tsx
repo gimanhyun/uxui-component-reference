@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Sparkles, X, Upload, CheckCircle2, ArrowRight, RefreshCw, FileText, Layers } from 'lucide-react';
 import { AIIdentifyResult, UIComponentData } from '@/types/component';
+import { trackEvent } from '@/lib/mixpanel';
 
 interface AIIdentifierModalProps {
   isOpen: boolean;
@@ -61,6 +62,11 @@ export function AIIdentifierModal({
       const json = await res.json();
       if (json.success) {
         setResult(json.data);
+        trackEvent('AI Identification Completed', {
+          confidence: json.data.confidence,
+          identifiedComponent: json.data.identifiedComponent.name,
+          hasImage: !!fileToSubmit
+        });
       }
     } catch (err) {
       console.error(err);

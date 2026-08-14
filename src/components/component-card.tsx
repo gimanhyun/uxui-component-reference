@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { UIComponentData } from '@/types/component';
 import { Code, Check, ExternalLink, Sparkles, Tag, Info } from 'lucide-react';
+import { trackEvent } from '@/lib/mixpanel';
 import { AccordionInteractiveDemo } from './ui-interactive/accordion-demo';
 import { ModalInteractiveDemo } from './ui-interactive/modal-demo';
 import { SegmentedControlInteractiveDemo } from './ui-interactive/segmented-control-demo';
@@ -26,6 +27,11 @@ export function ComponentCard({ component, onOpenDetail, isHighlighted }: Compon
   const handleCopyCode = () => {
     navigator.clipboard.writeText(component.codeSnippet.react);
     setCopied(true);
+    trackEvent('Component Code Copied', {
+      componentId: component.id,
+      componentName: component.name,
+      category: component.category
+    });
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -119,7 +125,13 @@ export function ComponentCard({ component, onOpenDetail, isHighlighted }: Compon
         </div>
 
         <button
-          onClick={() => onOpenDetail(component)}
+          onClick={() => {
+            trackEvent('Component Detail Modal Opened', {
+              componentId: component.id,
+              componentName: component.name
+            });
+            onOpenDetail(component);
+          }}
           className="flex items-center gap-1 text-xs font-bold text-zinc-900 dark:text-zinc-100 hover:underline"
         >
           <span>코드 & 가이드</span>
