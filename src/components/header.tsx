@@ -75,24 +75,37 @@ export function Header({ onOpenAIModal, onOpenCommandPalette }: HeaderProps) {
             </kbd>
           </button>
 
-          {/* 화이트 / 다크 모드 토글 버튼 */}
-          <button
-            onClick={toggleTheme}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-xl border border-zinc-200/80 dark:border-zinc-700/80 transition shadow-sm"
-            aria-label="Toggle Theme Mode"
-          >
-            {isDark ? (
-              <>
-                <Sun className="w-3.5 h-3.5 text-amber-400" />
-                <span>화이트 모드</span>
-              </>
-            ) : (
-              <>
-                <Moon className="w-3.5 h-3.5 text-zinc-700" />
-                <span>다크 모드</span>
-              </>
-            )}
-          </button>
+          {/* 화이트 모드 / 다크 모드 직관적 스위치 토글 */}
+          <div className="inline-flex p-1 bg-zinc-100 dark:bg-zinc-800/90 rounded-2xl border border-zinc-200/90 dark:border-zinc-700/80 shadow-sm text-xs font-semibold">
+            <button
+              onClick={() => {
+                document.documentElement.classList.remove('dark');
+                setIsDark(false);
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-xl transition-all ${
+                !isDark
+                  ? 'bg-white text-zinc-900 shadow-md font-bold ring-1 ring-zinc-200'
+                  : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200'
+              }`}
+            >
+              <Sun className={`w-3.5 h-3.5 ${!isDark ? 'text-amber-500 fill-amber-500' : 'text-zinc-400'}`} />
+              <span>화이트 모드</span>
+            </button>
+            <button
+              onClick={() => {
+                document.documentElement.classList.add('dark');
+                setIsDark(true);
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-xl transition-all ${
+                isDark
+                  ? 'bg-zinc-950 text-white shadow-md font-bold ring-1 ring-zinc-800'
+                  : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200'
+              }`}
+            >
+              <Moon className={`w-3.5 h-3.5 ${isDark ? 'text-indigo-400 fill-indigo-400' : 'text-zinc-400'}`} />
+              <span>다크 모드</span>
+            </button>
+          </div>
         </div>
       </div>
     </header>
