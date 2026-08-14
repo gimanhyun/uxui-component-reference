@@ -75,13 +75,23 @@ export function Header({ onOpenAIModal, onOpenCommandPalette }: HeaderProps) {
             </kbd>
           </button>
 
-          {/* 테마 토글 버튼 */}
+          {/* 화이트 / 다크 모드 토글 버튼 */}
           <button
             onClick={toggleTheme}
-            className="p-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 transition"
-            aria-label="Toggle Theme"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-xl border border-zinc-200/80 dark:border-zinc-700/80 transition shadow-sm"
+            aria-label="Toggle Theme Mode"
           >
-            {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-700" />}
+            {isDark ? (
+              <>
+                <Sun className="w-3.5 h-3.5 text-amber-400" />
+                <span>화이트 모드</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-3.5 h-3.5 text-zinc-700" />
+                <span>다크 모드</span>
+              </>
+            )}
           </button>
         </div>
       </div>
