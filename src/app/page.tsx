@@ -26,10 +26,15 @@ export default function Home() {
     runScanProcess(undefined, undefined, OUTFIT_SAMPLES[0].id);
   }, []);
 
-  const runScanProcess = async (description?: string, imageFileName?: string, sampleId?: string) => {
+  const runScanProcess = async (
+    description?: string,
+    imageFileName?: string,
+    sampleId?: string,
+    customImageUrl?: string
+  ) => {
     setIsScanning(true);
     try {
-      const res = await analyzeFashionImage(description, imageFileName, sampleId);
+      const res = await analyzeFashionImage(description, imageFileName, sampleId, customImageUrl);
       setScanResult(res);
       if (res.detectedCategories.length > 0) {
         setActiveCategory(res.detectedCategories[0].category);
@@ -37,7 +42,8 @@ export default function Home() {
       trackEvent('Fashion Scan Completed', {
         styleName: res.styleKeywords[0],
         confidence: res.confidence,
-        itemCategoriesCount: res.detectedCategories.length
+        itemCategoriesCount: res.detectedCategories.length,
+        isCustomUpload: !!customImageUrl
       });
     } catch (e) {
       console.error(e);
@@ -50,8 +56,8 @@ export default function Home() {
     runScanProcess(undefined, undefined, sample.id);
   };
 
-  const handleCustomImageUpload = (file: File) => {
-    runScanProcess(undefined, file.name);
+  const handleCustomImageUpload = (file: File, dataUrl: string) => {
+    runScanProcess(undefined, file.name, undefined, dataUrl);
   };
 
   const handleScrapItem = (item: ShoppingItem) => {

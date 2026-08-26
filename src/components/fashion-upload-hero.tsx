@@ -1,14 +1,14 @@
 'use client';
 
-import { useState } from 'react';
-import { Sparkles, Upload, Image as ImageIcon, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Sparkles, Upload, Image as ImageIcon, ArrowRight, CheckCircle2, RefreshCw } from 'lucide-react';
 import { OUTFIT_SAMPLES } from '@/data/fashion-data';
 import { OutfitSample } from '@/types/fashion';
 import { trackEvent } from '@/lib/mixpanel';
 
 interface FashionUploadHeroProps {
   onSelectSampleOutfit: (sample: OutfitSample) => void;
-  onCustomImageUpload: (file: File) => void;
+  onCustomImageUpload: (file: File, dataUrl: string) => void;
   isScanning: boolean;
 }
 
@@ -18,12 +18,29 @@ export function FashionUploadHero({
   isScanning
 }: FashionUploadHeroProps) {
   const [selectedSampleId, setSelectedSampleId] = useState<string>(OUTFIT_SAMPLES[0].id);
+  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+      setUploadedFileName(file.name);
+      setSelectedSampleId(''); // 샘플 선택 해제
+
       trackEvent('Custom Fashion Image Uploaded', { fileName: file.name, fileSize: file.size });
-      onCustomImageUpload(file);
+
+      // FileReader를 사용하여 DataURL(Base64) 로 변환하여 모바일/PC 모두 100% 동작
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target?.result as string;
+        if (dataUrl) {
+          onCustomImageUpload(file, dataUrl);
+        }
+      };
+      reader.readAsDataURL(file);
+
+      // 파일 인풋 초기화하여 재선택 가능하게 처리
+      e.target.value = '';
     }
   };
 
@@ -50,6 +67,7 @@ export function FashionUploadHero({
       {/* 모바일 캡처 이미지 업로드 드롭존 */}
       <div className="relative border-2 border-dashed border-zinc-300 dark:border-zinc-800 rounded-3xl p-5 text-center bg-zinc-50/70 dark:bg-zinc-950/50 hover:border-zinc-500 transition-all shadow-sm mb-6">
         <input
+          ref={fileInputRef}
           type="file"
           accept="image/*"
           onChange={handleFileChange}
@@ -57,13 +75,17 @@ export function FashionUploadHero({
         />
         <div className="flex flex-col items-center justify-center space-y-2">
           <div className="w-12 h-12 rounded-2xl bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 flex items-center justify-center shadow-md">
-            <Upload className="w-5 h-5" />
+            {isScanning ? (
+              <RefreshCw className="w-5 h-5 animate-spin text-amber-400" />
+            ) : (
+              <Upload className="w-5 h-5" />
+            )}
           </div>
           <div>
             <span className="font-extrabold text-xs text-zinc-900 dark:text-zinc-100 block">
-              스마트폰 캡처 사진 터치하여 업로드
+              {uploadedFileName ? `선택된 캡처: ${uploadedFileName}` : '스마트폰 캡처 사진 터치하여 업로드'}
             </span>
-            <span className="text-[10px] text-zinc-400">PNG, JPG 스크린샷 이미지 지원</span>
+            <span className="text-[10px] text-zinc-400">PNG, JPG 스크린샷 이미지 앨범 연결 지원</span>
           </div>
         </div>
       </div>
@@ -86,6 +108,7 @@ export function FashionUploadHero({
                 key={sample.id}
                 onClick={() => {
                   setSelectedSampleId(sample.id);
+                  setUploadedFileName(null);
                   trackEvent('Sample Outfit Selected', { sampleId: sample.id, styleName: sample.styleName });
                   onSelectSampleOutfit(sample);
                 }}

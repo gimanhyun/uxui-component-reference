@@ -4,7 +4,8 @@ import { FashionAIScanResult, OutfitSample } from '@/types/fashion';
 export async function analyzeFashionImage(
   description?: string,
   imageFileName?: string,
-  sampleId?: string
+  sampleId?: string,
+  customImageUrl?: string
 ): Promise<FashionAIScanResult> {
   // AI 시각 분석 시뮬레이션 지연시간 (600ms)
   await new Promise((resolve) => setTimeout(resolve, 600));
@@ -32,13 +33,13 @@ export async function analyzeFashionImage(
     id: `scan-${Date.now()}`,
     confidence,
     styleKeywords: [
-      matchedSample.styleName,
+      customImageUrl ? '내 앨범 업로드 캡처 룩' : matchedSample.styleName,
       '#핀터레스트트렌드',
       '#릴스인기착장',
       '#상의하의신발분리',
       '#쇼핑몰직접연결'
     ],
-    imageUrl: matchedSample.imageUrl,
+    imageUrl: customImageUrl || matchedSample.imageUrl, // 사용자가 실제 업로드한 캡처 사진 표출!
     detectedCategories: matchedSample.categories
   };
 }
