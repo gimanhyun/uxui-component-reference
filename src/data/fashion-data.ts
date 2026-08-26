@@ -16,44 +16,44 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
           {
             id: 'top-1-1',
             brand: '29CM (인사일런스)',
-            title: '오버핏 샌드 린넨 반팔 셔츠',
+            title: '오버핏 샌드 린넨 반팔 셔츠 (캡처 룩 동일 모델)',
             originalPrice: 79000,
             discountPrice: 59000,
             discountRate: 25,
-            similarityScore: 98,
+            similarityScore: 99.8,
             category: 'tops',
             isLowestPrice: true,
             shoppingUrl: 'https://www.29cm.co.kr',
             imageUrl: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&auto=format&fit=crop&q=80',
             color: 'Sand Beige',
-            material: 'Linen Blend'
+            material: 'Linen 100% Premium'
           },
           {
             id: 'top-1-2',
             brand: '무신사 (쿠어)',
-            title: '미니멀 라이트 베이지 포켓 반팔 셔츠',
+            title: '미니멀 라이트 베이지 포켓 드레이프 셔츠',
             originalPrice: 85000,
             discountPrice: 68000,
             discountRate: 20,
-            similarityScore: 94,
+            similarityScore: 98.2,
             category: 'tops',
             shoppingUrl: 'https://www.musinsa.com',
             imageUrl: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&auto=format&fit=crop&q=80',
-            color: 'Light Cream',
-            material: 'Cotton 100%'
+            color: 'Light Cream Beige',
+            material: 'Cotton Blend'
           },
           {
             id: 'top-1-3',
             brand: 'ZARA',
-            title: '텍스처드 리랙스드 핏 테일러드 셔츠',
+            title: '리랙스드 핏 테일러드 샌드 셔츠',
             originalPrice: 65900,
             discountPrice: 49900,
             discountRate: 24,
-            similarityScore: 89,
+            similarityScore: 96.5,
             category: 'tops',
             shoppingUrl: 'https://www.zara.com',
             imageUrl: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80',
-            color: 'Natural White',
+            color: 'Natural Beige',
             material: 'Viscose Blend'
           }
         ]
@@ -67,31 +67,31 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
           {
             id: 'bot-1-1',
             brand: '무신사 Standard',
-            title: '투 핀턱 와이드 트레시 슬랙스 [샌드]',
+            title: '투 핀턱 와이드 트레시 슬랙스 [샌드 베이지] (캡처 동일 핏)',
             originalPrice: 49900,
             discountPrice: 39900,
             discountRate: 20,
-            similarityScore: 99,
+            similarityScore: 99.5,
             category: 'bottoms',
             isLowestPrice: true,
             shoppingUrl: 'https://www.musinsa.com',
             imageUrl: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&auto=format&fit=crop&q=80',
             color: 'Sand Beige',
-            material: 'TR Poly Blend'
+            material: 'TR Premium Stretch'
           },
           {
             id: 'bot-1-2',
             brand: '지그재그 (Slowand)',
-            title: '버터 핀턱 리랙스 드레이프 실루엣 팬츠',
+            title: '버터 샌드 핀턱 드레이프 와이드 슬랙스',
             originalPrice: 45000,
             discountPrice: 36000,
             discountRate: 20,
-            similarityScore: 93,
+            similarityScore: 97.8,
             category: 'bottoms',
             shoppingUrl: 'https://zigzag.kr',
             imageUrl: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&auto=format&fit=crop&q=80',
-            color: 'Soft Butter',
-            material: 'Span Blend'
+            color: 'Soft Butter Beige',
+            material: 'Poly Rayon Blend'
           }
         ]
       },
@@ -104,16 +104,16 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
           {
             id: 'sh-1-1',
             brand: '29CM (클락스)',
-            title: '월러비 스웨이드 데저트 슈즈 메이플',
+            title: '월러비 스웨이드 데저트 슈즈 메이플 (캡처 착장 정품)',
             originalPrice: 238000,
             discountPrice: 189000,
             discountRate: 21,
-            similarityScore: 97,
+            similarityScore: 99.9,
             category: 'shoes',
             isLowestPrice: true,
             shoppingUrl: 'https://www.29cm.co.kr',
             imageUrl: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&auto=format&fit=crop&q=80',
-            color: 'Maple Suede',
+            color: 'Maple Tan',
             material: 'Real Leather Suede'
           },
           {
@@ -123,12 +123,12 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
             originalPrice: 209000,
             discountPrice: 175000,
             discountRate: 16,
-            similarityScore: 91,
+            similarityScore: 96.8,
             category: 'shoes',
             shoppingUrl: 'https://kream.co.kr',
             imageUrl: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&auto=format&fit=crop&q=80',
-            color: 'Taupe',
-            material: 'Natural Cork Suede'
+            color: 'Taupe Beige',
+            material: 'Natural Cork'
           }
         ]
       }
@@ -149,16 +149,16 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
           {
             id: 'top-2-1',
             brand: '무신사 (LMC)',
-            title: '피그먼트 피니쉬 와시드 오버사이즈 후디',
+            title: '피그먼트 피니쉬 와시드 헤비 후디 [차콜]',
             originalPrice: 98000,
             discountPrice: 78400,
             discountRate: 20,
-            similarityScore: 96,
+            similarityScore: 99.2,
             category: 'tops',
             isLowestPrice: true,
             shoppingUrl: 'https://www.musinsa.com',
             imageUrl: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=80',
-            color: 'Charcoal Black',
+            color: 'Vintage Charcoal',
             material: 'Heavy Cotton 100%'
           }
         ]
@@ -176,7 +176,7 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
             originalPrice: 109000,
             discountPrice: 87200,
             discountRate: 20,
-            similarityScore: 98,
+            similarityScore: 99.7,
             category: 'bottoms',
             isLowestPrice: true,
             shoppingUrl: 'https://www.29cm.co.kr',
@@ -199,7 +199,7 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
             originalPrice: 139000,
             discountPrice: 129000,
             discountRate: 7,
-            similarityScore: 99,
+            similarityScore: 99.9,
             category: 'shoes',
             isLowestPrice: true,
             shoppingUrl: 'https://kream.co.kr',
@@ -230,7 +230,7 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
             originalPrice: 198000,
             discountPrice: 178000,
             discountRate: 10,
-            similarityScore: 97,
+            similarityScore: 98.9,
             category: 'tops',
             isLowestPrice: true,
             shoppingUrl: 'https://www.musinsa.com',
@@ -253,7 +253,7 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
             originalPrice: 68000,
             discountPrice: 54400,
             discountRate: 20,
-            similarityScore: 95,
+            similarityScore: 97.9,
             category: 'bottoms',
             isLowestPrice: true,
             shoppingUrl: 'https://www.wconcept.co.kr',
@@ -276,7 +276,7 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
             originalPrice: 349000,
             discountPrice: 289000,
             discountRate: 17,
-            similarityScore: 98,
+            similarityScore: 99.4,
             category: 'shoes',
             isLowestPrice: true,
             shoppingUrl: 'https://kream.co.kr',
