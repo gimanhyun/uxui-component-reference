@@ -1,199 +1,132 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
-import { COMPONENTS_DATA } from '@/data/components-data';
-import { UIComponentData, DesignTone } from '@/types/component';
-import { Header } from '@/components/header';
-import { HeroSection } from '@/components/hero-section';
-import { ToneFilterBar } from '@/components/tone-filter-bar';
-import { SearchInput } from '@/components/search-input';
-import { ComponentCard } from '@/components/component-card';
-import { AIIdentifierModal } from '@/components/ai-identifier-modal';
-import { ComponentDetailModal } from '@/components/component-detail-modal';
-import { Footer } from '@/components/footer';
-import { CommandPaletteInteractiveDemo } from '@/components/ui-interactive/command-palette-demo';
-import { Search, Sparkles, Filter, RefreshCw } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { MobileHeader } from '@/components/mobile-header';
+import { FashionUploadHero } from '@/components/fashion-upload-hero';
+import { FashionAIScanner } from '@/components/fashion-ai-scanner';
+import { ItemCategoryTabs } from '@/components/item-category-tabs';
+import { ShoppingMatchList } from '@/components/shopping-match-list';
+import { LookbookModal } from '@/components/lookbook-modal';
+import { MobileFooter } from '@/components/mobile-footer';
+import { OUTFIT_SAMPLES } from '@/data/fashion-data';
+import { FashionCategory, FashionAIScanResult, OutfitSample, ShoppingItem } from '@/types/fashion';
+import { analyzeFashionImage } from '@/lib/fashion-ai-service';
 import { trackPageView, trackEvent } from '@/lib/mixpanel';
 
 export default function Home() {
-  const [selectedTone, setSelectedTone] = useState<DesignTone | 'all'>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isAIModalOpen, setIsAIModalOpen] = useState(false);
-  const [aiInitialText, setAiInitialText] = useState('');
-  const [selectedComponentForDetail, setSelectedComponentForDetail] = useState<UIComponentData | null>(null);
-  const [highlightedCompId, setHighlightedCompId] = useState<string | null>(null);
+  const [scanResult, setScanResult] = useState<FashionAIScanResult | null>(null);
+  const [activeCategory, setActiveCategory] = useState<FashionCategory>('tops');
+  const [isScanning, setIsScanning] = useState(false);
+  const [scrappedItems, setScrappedItems] = useState<ShoppingItem[]>([]);
+  const [isLookbookOpen, setIsLookbookOpen] = useState(false);
 
-  // Mixpanel 페이지 뷰 트래킹
+  // 1. 초기 렌더링 시 첫 번째 샘플 룩으로 자동 AI 스캔 초기화 & Mixpanel 페이지뷰
   useEffect(() => {
-    trackPageView('Home Landing Page');
+    trackPageView('FitFinder AI Mobile Home');
+    runScanProcess(undefined, undefined, OUTFIT_SAMPLES[0].id);
   }, []);
 
-  // 1. 톤 & 검색어 필터링 알고리즘
-  const filteredComponents = useMemo(() => {
-    return COMPONENTS_DATA.filter((comp) => {
-      // 톤 필터
-      if (selectedTone !== 'all' && !comp.tones.includes(selectedTone)) {
-        return false;
+  const runScanProcess = async (description?: string, imageFileName?: string, sampleId?: string) => {
+    setIsScanning(true);
+    try {
+      const res = await analyzeFashionImage(description, imageFileName, sampleId);
+      setScanResult(res);
+      if (res.detectedCategories.length > 0) {
+        setActiveCategory(res.detectedCategories[0].category);
       }
-
-      // 검색어 필터
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase();
-        const nameMatch = comp.name.toLowerCase().includes(q);
-        const koreanMatch = comp.koreanName.toLowerCase().includes(q);
-        const descMatch = comp.shortDescription.toLowerCase().includes(q);
-        const synonymMatch = comp.synonyms.some((s) => s.toLowerCase().includes(q));
-
-        return nameMatch || koreanMatch || descMatch || synonymMatch;
-      }
-
-      return true;
-    });
-  }, [selectedTone, searchQuery]);
-
-  // 검색 시 매칭된 연관 동의어 추출
-  const activeSynonyms = useMemo(() => {
-    if (!searchQuery.trim()) return [];
-    const q = searchQuery.toLowerCase();
-    const syns: string[] = [];
-    COMPONENTS_DATA.forEach((c) => {
-      c.synonyms.forEach((s) => {
-        if (s.toLowerCase().includes(q) && !syns.includes(s)) {
-          syns.push(s);
-        }
+      trackEvent('Fashion Scan Completed', {
+        styleName: res.styleKeywords[0],
+        confidence: res.confidence,
+        itemCategoriesCount: res.detectedCategories.length
       });
-    });
-    return syns;
-  }, [searchQuery]);
-
-  const handleOpenAIModalWithText = (text?: string) => {
-    setAiInitialText(text || '');
-    setIsAIModalOpen(true);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsScanning(false);
+    }
   };
 
-  const handleSelectComponentFromAI = (comp: UIComponentData) => {
-    setHighlightedCompId(comp.id);
-    setSelectedTone('all');
-    setSearchQuery('');
-    setTimeout(() => {
-      const el = document.getElementById(`comp-${comp.id}`);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const handleSelectSampleOutfit = (sample: OutfitSample) => {
+    runScanProcess(undefined, undefined, sample.id);
+  };
+
+  const handleCustomImageUpload = (file: File) => {
+    runScanProcess(undefined, file.name);
+  };
+
+  const handleScrapItem = (item: ShoppingItem) => {
+    setScrappedItems((prev) => {
+      const exists = prev.some((i) => i.id === item.id);
+      if (exists) {
+        return prev.filter((i) => i.id !== item.id);
+      } else {
+        return [...prev, item];
       }
-    }, 100);
+    });
   };
+
+  const currentCategoryData = scanResult?.detectedCategories.find(
+    (c) => c.category === activeCategory
+  );
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors">
-      {/* 헤더 */}
-      <Header
-        onOpenAIModal={() => handleOpenAIModalWithText()}
-        onOpenCommandPalette={() => handleOpenAIModalWithText('빠른 단축키 검색')}
-      />
-
-      {/* 히어로 영역 */}
-      <HeroSection
-        onOpenAIModalWithText={handleOpenAIModalWithText}
-        onSelectTag={(tag) => setSearchQuery(tag)}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-
-      {/* 톤 필터 바 */}
-      <ToneFilterBar
-        selectedTone={selectedTone}
-        onSelectTone={(tone) => setSelectedTone(tone)}
-        componentCount={filteredComponents.length}
-      />
-
-      {/* 메인 레퍼런스 컴포넌트 목록 영역 */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
-        {/* 검색바 */}
-        <SearchInput
-          query={searchQuery}
-          setQuery={setSearchQuery}
-          activeSynonyms={activeSynonyms}
+    <div className="min-h-screen bg-zinc-100 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans transition-colors selection:bg-amber-400">
+      {/* 모바일 컨테이너 Wrapper (390px ~ 440px Focus) */}
+      <div className="max-w-md mx-auto min-h-screen bg-white dark:bg-zinc-950 shadow-2xl flex flex-col border-x border-zinc-200/80 dark:border-zinc-800/80">
+        {/* 모바일 헤더 */}
+        <MobileHeader
+          scrapCount={scrappedItems.length}
+          onOpenLookbook={() => setIsLookbookOpen(true)}
         />
 
-        {/* 결과 카운트 & 필터 초기화 */}
-        {(selectedTone !== 'all' || searchQuery) && (
-          <div className="flex items-center justify-between mb-6 text-xs text-zinc-500 bg-zinc-50 dark:bg-zinc-900/60 p-3 rounded-2xl border border-zinc-200/60 dark:border-zinc-800">
-            <div>
-              필터 적용 중: <span className="font-bold text-zinc-800 dark:text-zinc-200">톤 [{selectedTone}]</span>, 검색어 [<span className="font-bold text-zinc-800 dark:text-zinc-200">{searchQuery || '전체'}</span>] ({filteredComponents.length}개 검색됨)
-            </div>
-            <button
-              onClick={() => {
-                setSelectedTone('all');
-                setSearchQuery('');
-              }}
-              className="flex items-center gap-1 text-zinc-900 dark:text-zinc-100 font-bold hover:underline"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              <span>필터 초기화</span>
-            </button>
-          </div>
-        )}
+        {/* 메인 뷰포트 영역 */}
+        <main className="flex-1">
+          {/* 캡처 업로드 히어로 & 1-Click 샘플 착장 */}
+          <FashionUploadHero
+            onSelectSampleOutfit={handleSelectSampleOutfit}
+            onCustomImageUpload={handleCustomImageUpload}
+            isScanning={isScanning}
+          />
 
-        {/* 컴포넌트 카드 그리드 (반응형 1-2-3 열) */}
-        {filteredComponents.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredComponents.map((comp) => (
-              <ComponentCard
-                key={comp.id}
-                component={comp}
-                onOpenDetail={(c) => setSelectedComponentForDetail(c)}
-                isHighlighted={highlightedCompId === comp.id}
-              />
-            ))}
-          </div>
-        ) : (
-          /* 검색 결과가 없을 때 */
-          <div className="py-16 text-center border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-3xl p-8 bg-zinc-50/50 dark:bg-zinc-900/30">
-            <Search className="w-10 h-10 text-zinc-400 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-zinc-800 dark:text-zinc-200">
-              일치하는 UI 컴포넌트를 찾을 수 없습니다
-            </h3>
-            <p className="text-xs text-zinc-500 mt-1 max-w-sm mx-auto">
-              검색어나 디자인 톤 필터를 변경해보거나, LLM 식별기에 직접 묘사를 입력하여 명칭을 찾아보세요.
-            </p>
-            <div className="mt-5 flex items-center justify-center gap-3">
-              <button
-                onClick={() => {
-                  setSelectedTone('all');
-                  setSearchQuery('');
-                }}
-                className="px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-semibold rounded-xl hover:bg-zinc-200 transition"
-              >
-                전체 결과 보기
-              </button>
-              <button
-                onClick={() => handleOpenAIModalWithText(searchQuery)}
-                className="px-4 py-2 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-xs font-semibold rounded-xl hover:opacity-90 transition flex items-center gap-1.5"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-amber-300 dark:text-amber-600" />
-                <span>AI로 이 검색어 분석하기</span>
-              </button>
-            </div>
-          </div>
-        )}
-      </main>
+          {/* AI 시각 스캐너 및 부위별 바운딩 박스 */}
+          <FashionAIScanner
+            scanResult={scanResult}
+            activeCategory={activeCategory}
+            onSelectCategory={(cat) => setActiveCategory(cat)}
+            isScanning={isScanning}
+          />
 
-      {/* AI 명칭 식별 모달 */}
-      <AIIdentifierModal
-        isOpen={isAIModalOpen}
-        onClose={() => setIsAIModalOpen(false)}
-        initialText={aiInitialText}
-        onSelectComponent={handleSelectComponentFromAI}
-      />
+          {/* [👕 상의] [👖 하의] [👟 신발] 세그먼티드 카테고리 탭 */}
+          {scanResult && (
+            <ItemCategoryTabs
+              categories={scanResult.detectedCategories}
+              activeCategory={activeCategory}
+              onSelectCategory={(cat) => setActiveCategory(cat)}
+            />
+          )}
 
-      {/* 컴포넌트 코드 & 가이드라인 상세 모달 */}
-      <ComponentDetailModal
-        component={selectedComponentForDetail}
-        onClose={() => setSelectedComponentForDetail(null)}
-      />
+          {/* 선택된 카테고리별 유사 쇼핑몰 매칭 결과 목록 */}
+          {currentCategoryData && (
+            <ShoppingMatchList
+              items={currentCategoryData.matchedItems}
+              categoryTitle={currentCategoryData.koreanName}
+              onScrapItem={handleScrapItem}
+              scrappedItemIds={scrappedItems.map((i) => i.id)}
+            />
+          )}
+        </main>
 
-      {/* 푸터 */}
-      <Footer />
+        {/* 내 착장 보관함 (스크랩북) 모달 */}
+        <LookbookModal
+          isOpen={isLookbookOpen}
+          onClose={() => setIsLookbookOpen(false)}
+          scrappedItems={scrappedItems}
+          onRemoveItem={handleScrapItem}
+        />
+
+        {/* 푸터 */}
+        <MobileFooter />
+      </div>
     </div>
   );
 }
