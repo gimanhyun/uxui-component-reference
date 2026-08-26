@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { ShoppingItem } from '@/types/fashion';
-import { ExternalLink, Heart, Sparkles, Tag, Check, ArrowUpRight } from 'lucide-react';
+import { Heart, ArrowUpRight } from 'lucide-react';
 import { trackEvent } from '@/lib/mixpanel';
 
 interface ShoppingMatchListProps {
@@ -18,9 +18,8 @@ export function ShoppingMatchList({
   onScrapItem,
   scrappedItemIds
 }: ShoppingMatchListProps) {
-  const [selectedItemForModal, setSelectedItemForModal] = useState<ShoppingItem | null>(null);
-
-  const handleOutboundClick = (item: ShoppingItem) => {
+  const handleOutboundClick = (item: ShoppingItem, e: React.MouseEvent) => {
+    e.stopPropagation();
     trackEvent('Shopping Outbound Link Clicked', {
       itemId: item.id,
       brand: item.brand,
@@ -29,7 +28,8 @@ export function ShoppingMatchList({
       similarityScore: item.similarityScore,
       category: item.category
     });
-    window.open(item.shoppingUrl, '_blank', 'noopener,noreferrer');
+    // 모바일 인앱 브라우저 팝업 차단 방지용 직행 연결
+    window.location.href = item.shoppingUrl;
   };
 
   return (
@@ -47,9 +47,22 @@ export function ShoppingMatchList({
           const isScrapped = scrappedItemIds.includes(item.id);
 
           return (
-            <div
+            <a
               key={item.id}
-              className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-3.5 flex gap-3.5 transition-all hover:shadow-lg relative group"
+              href={item.shoppingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                trackEvent('Shopping Outbound Link Clicked', {
+                  itemId: item.id,
+                  brand: item.brand,
+                  title: item.title,
+                  price: item.discountPrice,
+                  similarityScore: item.similarityScore,
+                  category: item.category
+                });
+              }}
+              className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-3.5 flex gap-3.5 transition-all hover:shadow-lg relative group cursor-pointer block text-left"
             >
               {/* 상품 썸네일 */}
               <div className="relative w-24 h-28 rounded-2xl overflow-hidden shrink-0 border border-zinc-100 dark:border-zinc-800 bg-zinc-100">
@@ -76,7 +89,10 @@ export function ShoppingMatchList({
                       [{item.brand}]
                     </span>
                     <button
-                      onClick={() => {
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         trackEvent('Item Scrapped Toggle', { itemId: item.id, title: item.title });
                         onScrapItem(item);
                       }}
@@ -91,7 +107,7 @@ export function ShoppingMatchList({
                     </button>
                   </div>
 
-                  <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-100 line-clamp-2 leading-snug">
+                  <h4 className="text-xs font-bold text-zinc-900 dark:text-zinc-100 line-clamp-2 leading-snug group-hover:underline">
                     {item.title}
                   </h4>
                   <p className="text-[10px] text-zinc-400 mt-0.5">
@@ -114,16 +130,13 @@ export function ShoppingMatchList({
                     </div>
                   </div>
 
-                  <button
-                    onClick={() => handleOutboundClick(item)}
-                    className="flex items-center gap-1 px-3 py-1.5 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 rounded-xl text-[11px] font-extrabold hover:opacity-90 transition shadow-sm"
-                  >
-                    <span>쇼핑몰 이동</span>
+                  <div className="flex items-center gap-1 px-3 py-1.5 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 rounded-xl text-[11px] font-extrabold shadow-sm group-hover:bg-amber-500 transition">
+                    <span>쇼핑몰 상세 이동</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
-                  </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
           );
         })}
       </div>
