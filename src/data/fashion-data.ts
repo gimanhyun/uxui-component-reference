@@ -15,45 +15,45 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
         matchedItems: [
           {
             id: 'top-bustier-1',
-            brand: '지그재그 (Slowand)',
-            title: '크림 플라워 펀칭 레이스 뷔스티에 블라우스 (캡처 룩 100% 동일)',
-            originalPrice: 48000,
-            discountPrice: 38400,
+            brand: '29CM (Sinoon)',
+            title: '로맨틱 펀칭 레이스 뷔스티에 블라우스 탑 [아이보리]',
+            originalPrice: 78000,
+            discountPrice: 62400,
             discountRate: 20,
             similarityScore: 99.8,
             category: 'tops',
             isLowestPrice: true,
-            shoppingUrl: 'https://zigzag.kr',
+            shoppingUrl: 'https://www.29cm.co.kr/catalog/2681533',
+            imageUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&auto=format&fit=crop&q=80',
+            color: 'Ivory Cream',
+            material: 'Floral Lace 100%'
+          },
+          {
+            id: 'top-bustier-2',
+            brand: 'W컨셉 (Letter from Moon)',
+            title: '스퀘어넥 프릴 레이스 레이어드 뷔스티에',
+            originalPrice: 69000,
+            discountPrice: 55200,
+            discountRate: 20,
+            similarityScore: 98.7,
+            category: 'tops',
+            shoppingUrl: 'https://m.wconcept.co.kr/product/301859231',
             imageUrl: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&auto=format&fit=crop&q=80',
             color: 'Cream White',
             material: 'Lace Cotton Blend'
           },
           {
-            id: 'top-bustier-2',
-            brand: 'W컨셉 (Letter from Moon)',
-            title: '스퀘어넥 펀칭 레이스 레이어드 뷔스티에 [아이보리]',
-            originalPrice: 59000,
-            discountPrice: 47200,
-            discountRate: 20,
-            similarityScore: 98.7,
-            category: 'tops',
-            shoppingUrl: 'https://www.wconcept.co.kr',
-            imageUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&auto=format&fit=crop&q=80',
-            color: 'Ivory Light',
-            material: 'Floral Lace 100%'
-          },
-          {
             id: 'top-bustier-3',
-            brand: '29CM (Sinoon)',
-            title: '로맨틱 시스루 레이스 스트랩 뷔스티에 탑 [Cream]',
-            originalPrice: 72000,
-            discountPrice: 57600,
+            brand: '무신사 (Slowand)',
+            title: '시스루 펀칭 레이스 뷔스티에 나시 블라우스',
+            originalPrice: 45000,
+            discountPrice: 36000,
             discountRate: 20,
-            similarityScore: 97.4,
+            similarityScore: 97.5,
             category: 'tops',
-            shoppingUrl: 'https://www.29cm.co.kr',
+            shoppingUrl: 'https://www.musinsa.com/app/goods/3482701',
             imageUrl: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&auto=format&fit=crop&q=80',
-            color: 'Cream',
+            color: 'Soft Cream',
             material: 'Soft Poly Lace'
           }
         ]
@@ -66,31 +66,31 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
         matchedItems: [
           {
             id: 'bot-bustier-1',
-            brand: '지그재그 (BLACKUP)',
-            title: '어시메트릭 언발 레이스 레이어드 롱 스커트 데님 세트 (캡처 동의 핏)',
-            originalPrice: 54000,
-            discountPrice: 43200,
+            brand: '29CM (BLACKUP)',
+            title: '어시메트릭 언발 레이스 레이어드 롱 스커트 데님 세트',
+            originalPrice: 64000,
+            discountPrice: 51200,
             discountRate: 20,
             similarityScore: 99.6,
             category: 'bottoms',
             isLowestPrice: true,
-            shoppingUrl: 'https://zigzag.kr',
+            shoppingUrl: 'https://www.29cm.co.kr/catalog/2681533',
             imageUrl: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&auto=format&fit=crop&q=80',
-            color: 'Ivory Lace + Vintage Blue',
+            color: 'Ivory Lace + Blue Denim',
             material: 'Cotton Denim + Lace'
           },
           {
             id: 'bot-bustier-2',
             brand: '무신사 (쿠어)',
-            title: '슬릿 언발런스 레이스 프릴 원피스 와이드 팬츠',
-            originalPrice: 69000,
-            discountPrice: 55200,
+            title: '프릴 레이어드 롱 스커트 와이드 데님 팬츠',
+            originalPrice: 79000,
+            discountPrice: 63200,
             discountRate: 20,
             similarityScore: 97.9,
             category: 'bottoms',
-            shoppingUrl: 'https://www.musinsa.com',
+            shoppingUrl: 'https://www.musinsa.com/app/goods/3482701',
             imageUrl: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&auto=format&fit=crop&q=80',
-            color: 'Soft White',
+            color: 'Light Cream',
             material: 'Rayon Chiffon'
           }
         ]
@@ -111,7 +111,7 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
             similarityScore: 99.1,
             category: 'shoes',
             isLowestPrice: true,
-            shoppingUrl: 'https://www.29cm.co.kr',
+            shoppingUrl: 'https://www.29cm.co.kr/catalog/2681533',
             imageUrl: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&auto=format&fit=crop&q=80',
             color: 'Off White',
             material: 'Soft Lambskin'
@@ -135,14 +135,14 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
           {
             id: 'top-1-1',
             brand: '29CM (인사일런스)',
-            title: '오버핏 샌드 린넨 반팔 셔츠 (캡처 룩 동일 모델)',
+            title: '오버핏 샌드 린넨 반팔 셔츠',
             originalPrice: 79000,
             discountPrice: 59000,
             discountRate: 25,
             similarityScore: 99.8,
             category: 'tops',
             isLowestPrice: true,
-            shoppingUrl: 'https://www.29cm.co.kr',
+            shoppingUrl: 'https://www.29cm.co.kr/catalog/2681533',
             imageUrl: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&auto=format&fit=crop&q=80',
             color: 'Sand Beige',
             material: 'Linen 100% Premium'
@@ -158,14 +158,14 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
           {
             id: 'bot-1-1',
             brand: '무신사 Standard',
-            title: '투 핀턱 와이드 트레시 슬랙스 [샌드 베이지] (캡처 동일 핏)',
+            title: '투 핀턱 와이드 트레시 슬랙스 [샌드 베이지]',
             originalPrice: 49900,
             discountPrice: 39900,
             discountRate: 20,
             similarityScore: 99.5,
             category: 'bottoms',
             isLowestPrice: true,
-            shoppingUrl: 'https://www.musinsa.com',
+            shoppingUrl: 'https://www.musinsa.com/app/goods/3482701',
             imageUrl: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&auto=format&fit=crop&q=80',
             color: 'Sand Beige',
             material: 'TR Premium Stretch'
@@ -181,94 +181,17 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
           {
             id: 'sh-1-1',
             brand: '29CM (클락스)',
-            title: '월러비 스웨이드 데저트 슈즈 메이플 (캡처 착장 정품)',
+            title: '월러비 스웨이드 데저트 슈즈 메이플',
             originalPrice: 238000,
             discountPrice: 189000,
             discountRate: 21,
             similarityScore: 99.9,
             category: 'shoes',
             isLowestPrice: true,
-            shoppingUrl: 'https://www.29cm.co.kr',
+            shoppingUrl: 'https://www.29cm.co.kr/catalog/2681533',
             imageUrl: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&auto=format&fit=crop&q=80',
             color: 'Maple Tan',
             material: 'Real Leather Suede'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'street-denim',
-    styleName: '스트릿 오버핏 데님 룩',
-    styleDescription: '릴스 숏폼 트렌딩 와이드 데님 팬츠 & 비티지 후디 스타일링',
-    imageUrl: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&auto=format&fit=crop&q=80',
-    categories: [
-      {
-        category: 'tops',
-        koreanName: '상의 (Tops)',
-        icon: '👕',
-        boundingBox: { top: 15, left: 20, width: 60, height: 38 },
-        matchedItems: [
-          {
-            id: 'top-2-1',
-            brand: '무신사 (LMC)',
-            title: '피그먼트 피니쉬 와시드 헤비 후디 [차콜]',
-            originalPrice: 98000,
-            discountPrice: 78400,
-            discountRate: 20,
-            similarityScore: 99.2,
-            category: 'tops',
-            isLowestPrice: true,
-            shoppingUrl: 'https://www.musinsa.com',
-            imageUrl: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=80',
-            color: 'Vintage Charcoal',
-            material: 'Heavy Cotton 100%'
-          }
-        ]
-      },
-      {
-        category: 'bottoms',
-        koreanName: '하의 (Bottoms)',
-        icon: '👖',
-        boundingBox: { top: 50, left: 22, width: 56, height: 40 },
-        matchedItems: [
-          {
-            id: 'bot-2-1',
-            brand: '29CM (디스이즈네버댓)',
-            title: '딥 인디고 브러쉬드 와이드 데님 팬츠',
-            originalPrice: 109000,
-            discountPrice: 87200,
-            discountRate: 20,
-            similarityScore: 99.7,
-            category: 'bottoms',
-            isLowestPrice: true,
-            shoppingUrl: 'https://www.29cm.co.kr',
-            imageUrl: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&auto=format&fit=crop&q=80',
-            color: 'Deep Raw Indigo',
-            material: 'Denim Cotton 100%'
-          }
-        ]
-      },
-      {
-        category: 'shoes',
-        koreanName: '신발 (Shoes)',
-        icon: '👟',
-        boundingBox: { top: 89, left: 26, width: 48, height: 10 },
-        matchedItems: [
-          {
-            id: 'sh-2-1',
-            brand: 'KREAM (나이키)',
-            title: '나이키 에어포스 1 \'07 로우 화이트',
-            originalPrice: 139000,
-            discountPrice: 129000,
-            discountRate: 7,
-            similarityScore: 99.9,
-            category: 'shoes',
-            isLowestPrice: true,
-            shoppingUrl: 'https://kream.co.kr',
-            imageUrl: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&auto=format&fit=crop&q=80',
-            color: 'Triple White',
-            material: 'Leather'
           }
         ]
       }
