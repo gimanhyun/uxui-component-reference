@@ -2,6 +2,125 @@ import { OutfitSample } from '@/types/fashion';
 
 export const OUTFIT_SAMPLES: OutfitSample[] = [
   {
+    id: 'feminine-bustier',
+    styleName: '페미닌 레이스 뷔스티에 룩',
+    styleDescription: '인스타 릴스 히트 아이보리 플라워 레이스 뷔스티에 & 레이어드 룩',
+    imageUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80',
+    categories: [
+      {
+        category: 'tops',
+        koreanName: '상의 (Tops)',
+        icon: '👕',
+        boundingBox: { top: 12, left: 24, width: 52, height: 36 },
+        matchedItems: [
+          {
+            id: 'top-bustier-1',
+            brand: '지그재그 (Slowand)',
+            title: '크림 플라워 펀칭 레이스 뷔스티에 블라우스 (캡처 룩 100% 동일)',
+            originalPrice: 48000,
+            discountPrice: 38400,
+            discountRate: 20,
+            similarityScore: 99.8,
+            category: 'tops',
+            isLowestPrice: true,
+            shoppingUrl: 'https://zigzag.kr',
+            imageUrl: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&auto=format&fit=crop&q=80',
+            color: 'Cream White',
+            material: 'Lace Cotton Blend'
+          },
+          {
+            id: 'top-bustier-2',
+            brand: 'W컨셉 (Letter from Moon)',
+            title: '스퀘어넥 펀칭 레이스 레이어드 뷔스티에 [아이보리]',
+            originalPrice: 59000,
+            discountPrice: 47200,
+            discountRate: 20,
+            similarityScore: 98.7,
+            category: 'tops',
+            shoppingUrl: 'https://www.wconcept.co.kr',
+            imageUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&auto=format&fit=crop&q=80',
+            color: 'Ivory Light',
+            material: 'Floral Lace 100%'
+          },
+          {
+            id: 'top-bustier-3',
+            brand: '29CM (Sinoon)',
+            title: '로맨틱 시스루 레이스 스트랩 뷔스티에 탑 [Cream]',
+            originalPrice: 72000,
+            discountPrice: 57600,
+            discountRate: 20,
+            similarityScore: 97.4,
+            category: 'tops',
+            shoppingUrl: 'https://www.29cm.co.kr',
+            imageUrl: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&auto=format&fit=crop&q=80',
+            color: 'Cream',
+            material: 'Soft Poly Lace'
+          }
+        ]
+      },
+      {
+        category: 'bottoms',
+        koreanName: '하의 (Bottoms)',
+        icon: '👖',
+        boundingBox: { top: 48, left: 26, width: 48, height: 42 },
+        matchedItems: [
+          {
+            id: 'bot-bustier-1',
+            brand: '지그재그 (BLACKUP)',
+            title: '어시메트릭 언발 레이스 레이어드 롱 스커트 데님 세트 (캡처 동의 핏)',
+            originalPrice: 54000,
+            discountPrice: 43200,
+            discountRate: 20,
+            similarityScore: 99.6,
+            category: 'bottoms',
+            isLowestPrice: true,
+            shoppingUrl: 'https://zigzag.kr',
+            imageUrl: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&auto=format&fit=crop&q=80',
+            color: 'Ivory Lace + Vintage Blue',
+            material: 'Cotton Denim + Lace'
+          },
+          {
+            id: 'bot-bustier-2',
+            brand: '무신사 (쿠어)',
+            title: '슬릿 언발런스 레이스 프릴 원피스 와이드 팬츠',
+            originalPrice: 69000,
+            discountPrice: 55200,
+            discountRate: 20,
+            similarityScore: 97.9,
+            category: 'bottoms',
+            shoppingUrl: 'https://www.musinsa.com',
+            imageUrl: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&auto=format&fit=crop&q=80',
+            color: 'Soft White',
+            material: 'Rayon Chiffon'
+          }
+        ]
+      },
+      {
+        category: 'shoes',
+        koreanName: '신발 (Shoes)',
+        icon: '👟',
+        boundingBox: { top: 88, left: 30, width: 40, height: 10 },
+        matchedItems: [
+          {
+            id: 'sh-bustier-1',
+            brand: '29CM (마르지엘라)',
+            title: '레더 레이스업 메리제인 스니커즈 [화이트 크림]',
+            originalPrice: 189000,
+            discountPrice: 151200,
+            discountRate: 20,
+            similarityScore: 99.1,
+            category: 'shoes',
+            isLowestPrice: true,
+            shoppingUrl: 'https://www.29cm.co.kr',
+            imageUrl: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&auto=format&fit=crop&q=80',
+            color: 'Off White',
+            material: 'Soft Lambskin'
+          }
+        ]
+      }
+    ]
+  },
+  {
     id: 'minimal-beige',
     styleName: '미니멀 샌드 베이지 룩',
     styleDescription: '핀터레스트 저장수 3만+ 릴스 인기 샌드 톤온톤 미니멀 코디',
@@ -27,34 +146,6 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
             imageUrl: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&auto=format&fit=crop&q=80',
             color: 'Sand Beige',
             material: 'Linen 100% Premium'
-          },
-          {
-            id: 'top-1-2',
-            brand: '무신사 (쿠어)',
-            title: '미니멀 라이트 베이지 포켓 드레이프 셔츠',
-            originalPrice: 85000,
-            discountPrice: 68000,
-            discountRate: 20,
-            similarityScore: 98.2,
-            category: 'tops',
-            shoppingUrl: 'https://www.musinsa.com',
-            imageUrl: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&auto=format&fit=crop&q=80',
-            color: 'Light Cream Beige',
-            material: 'Cotton Blend'
-          },
-          {
-            id: 'top-1-3',
-            brand: 'ZARA',
-            title: '리랙스드 핏 테일러드 샌드 셔츠',
-            originalPrice: 65900,
-            discountPrice: 49900,
-            discountRate: 24,
-            similarityScore: 96.5,
-            category: 'tops',
-            shoppingUrl: 'https://www.zara.com',
-            imageUrl: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80',
-            color: 'Natural Beige',
-            material: 'Viscose Blend'
           }
         ]
       },
@@ -78,20 +169,6 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
             imageUrl: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&auto=format&fit=crop&q=80',
             color: 'Sand Beige',
             material: 'TR Premium Stretch'
-          },
-          {
-            id: 'bot-1-2',
-            brand: '지그재그 (Slowand)',
-            title: '버터 샌드 핀턱 드레이프 와이드 슬랙스',
-            originalPrice: 45000,
-            discountPrice: 36000,
-            discountRate: 20,
-            similarityScore: 97.8,
-            category: 'bottoms',
-            shoppingUrl: 'https://zigzag.kr',
-            imageUrl: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&auto=format&fit=crop&q=80',
-            color: 'Soft Butter Beige',
-            material: 'Poly Rayon Blend'
           }
         ]
       },
@@ -115,20 +192,6 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
             imageUrl: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&auto=format&fit=crop&q=80',
             color: 'Maple Tan',
             material: 'Real Leather Suede'
-          },
-          {
-            id: 'sh-1-2',
-            brand: 'KREAM',
-            title: '버켄스탁 보스턴 스웨이드 타우페',
-            originalPrice: 209000,
-            discountPrice: 175000,
-            discountRate: 16,
-            similarityScore: 96.8,
-            category: 'shoes',
-            shoppingUrl: 'https://kream.co.kr',
-            imageUrl: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&auto=format&fit=crop&q=80',
-            color: 'Taupe Beige',
-            material: 'Natural Cork'
           }
         ]
       }
@@ -206,83 +269,6 @@ export const OUTFIT_SAMPLES: OutfitSample[] = [
             imageUrl: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&auto=format&fit=crop&q=80',
             color: 'Triple White',
             material: 'Leather'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'cityboy-casual',
-    styleName: '시티보이 버뮤다 셔츠 룩',
-    styleDescription: '핀터레스트 남성 트렌드 상위 스트라이프 셔츠 & 버뮤다 하프 팬츠',
-    imageUrl: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&auto=format&fit=crop&q=80',
-    categories: [
-      {
-        category: 'tops',
-        koreanName: '상의 (Tops)',
-        icon: '👕',
-        boundingBox: { top: 16, left: 20, width: 60, height: 36 },
-        matchedItems: [
-          {
-            id: 'top-3-1',
-            brand: '무신사 (포터리)',
-            title: '옥스포드 스트라이프 컴포트 셔츠 [블루]',
-            originalPrice: 198000,
-            discountPrice: 178000,
-            discountRate: 10,
-            similarityScore: 98.9,
-            category: 'tops',
-            isLowestPrice: true,
-            shoppingUrl: 'https://www.musinsa.com',
-            imageUrl: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&auto=format&fit=crop&q=80',
-            color: 'Sky Stripe',
-            material: 'Premium Oxford Cotton'
-          }
-        ]
-      },
-      {
-        category: 'bottoms',
-        koreanName: '하의 (Bottoms)',
-        icon: '👖',
-        boundingBox: { top: 50, left: 25, width: 50, height: 32 },
-        matchedItems: [
-          {
-            id: 'bot-3-1',
-            brand: 'W컨셉',
-            title: '치노 원턱 와이드 버뮤다 쇼츠 [네이비]',
-            originalPrice: 68000,
-            discountPrice: 54400,
-            discountRate: 20,
-            similarityScore: 97.9,
-            category: 'bottoms',
-            isLowestPrice: true,
-            shoppingUrl: 'https://www.wconcept.co.kr',
-            imageUrl: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&auto=format&fit=crop&q=80',
-            color: 'Dark Navy',
-            material: 'Cotton Chino'
-          }
-        ]
-      },
-      {
-        category: 'shoes',
-        koreanName: '신발 (Shoes)',
-        icon: '👟',
-        boundingBox: { top: 82, left: 28, width: 44, height: 16 },
-        matchedItems: [
-          {
-            id: 'sh-3-1',
-            brand: 'KREAM (뉴발란스)',
-            title: '뉴발란스 990v6 메이드 인 USA 회색',
-            originalPrice: 349000,
-            discountPrice: 289000,
-            discountRate: 17,
-            similarityScore: 99.4,
-            category: 'shoes',
-            isLowestPrice: true,
-            shoppingUrl: 'https://kream.co.kr',
-            imageUrl: 'https://images.unsplash.com/photo-1539185441755-769473a23570?w=400&auto=format&fit=crop&q=80',
-            color: 'Classic Grey',
-            material: 'Pigskin Mesh'
           }
         ]
       }
